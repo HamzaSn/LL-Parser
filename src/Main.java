@@ -7,7 +7,10 @@ public class Main {
         NonRecursiveSyntaxAnalyser NRSA = new NonRecursiveSyntaxAnalyser();
         try {
             NRSA.analyse();
-            NRSA.AT.showAnalysis();
+            // Au cas ou vous souhaitez afficher l'analyse en console sans creation de fichier
+            // commenter l'appel a la fonction writeAnalysis() et décommente la ligne suivante :
+            // NRSA.AT.showAnalysis();
+             NRSA.AT.writeAnalysis("./output/output.txt");
         } catch (Exception e){
             System.err.println("Java : ");
             e.printStackTrace();
