@@ -53,7 +53,7 @@ public class InputReader {
 
     /**
      * verifie la syntaxe de la définition des terminaux de la grammaire
-     * en cas de validation, les non terminaux seront ajouter a leurs structure de données relative
+     * en cas de validation, les  terminaux seront ajouter a leurs structure de données relative
      * @return true si success, false sinon.
      * @throws IOException
      */
@@ -94,7 +94,7 @@ public class InputReader {
 
     /**
      * verifie la syntaxe de la définition des regles de productions de la grammaire
-     * en cas de validation, les non terminaux seront ajouter a leurs structure de données relative
+     * en cas de validation, les regles seront ajouter a leurs structure de données relative
      * @return true si success, false sinon.
      * @throws IOException
      */
@@ -164,7 +164,8 @@ public class InputReader {
     /**
      * retire le premier element de l'entrée, correspandant au symbole courant au cours
      * de l'analyse.
-     * la methode ne fonctionne plus lorceque l'analyse atteind le marqueur de la fin de la chaine "$".
+     * la methode n'affecte pas le tableau original des element de l'input
+     * et ne fonctionne plus lorceque l'analyse atteind le marqueur de la fin de la chaine "$".
      * @return true si un element a été retiré, false sinon.
      */
     public boolean removeElement(){
