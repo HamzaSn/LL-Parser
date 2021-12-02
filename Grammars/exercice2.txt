@@ -1,0 +1,10 @@
+terminals
+i t a c b
+non terminals
+S S' E
+productions
+S -> i E t S S'
+S -> a
+S' -> c S
+S' -> &
+E -> b

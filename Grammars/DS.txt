@@ -1,0 +1,14 @@
+terminals
+GO PAN TL TR
+non terminals
+route suite inst panneau turn 
+productions
+route -> inst suite
+suite -> inst suite
+suite -> &
+inst -> GO
+inst -> panneau turn
+turn -> TL
+turn -> TR
+panneau -> PAN
+panneau -> &

@@ -1,0 +1,14 @@
+terminals
+id := ; nb ( ) + *
+non terminals
+E' E I I'
+productions
+I -> id := E I'
+I' -> ;
+I' -> &
+E -> id E'
+E -> nb E'
+E -> ( E ) E'
+E' -> + E E'
+E' -> * E E'
+E' -> &

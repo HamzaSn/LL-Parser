@@ -1,0 +1,16 @@
+terminals
+a b y c
+non terminals
+A B Y C C'
+productions
+A -> a X
+A -> B Y C
+A -> b Y
+B -> C
+B -> &
+Y -> y Y
+Y -> &
+C -> Y B C'
+C -> &
+C' -> c C'
+C' -> &
