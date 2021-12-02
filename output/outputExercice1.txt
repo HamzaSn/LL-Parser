@@ -1,0 +1,72 @@
+             Analyse Syntaxique prédictive non récursive
+
+
+
+Axiom  : I
+
+Terminaux  : [id, :=, ;, nb, (, ), +, *]
+
+Non-terminaux  : [E', E, I, I']
+
+Regles de productions : 
+
+(1)   E' -> + E E'
+(2)   E' -> * E E'
+(3)   E' -> &
+(4)   E -> id E'
+(5)   E -> nb E'
+(6)   E -> ( E ) E'
+(7)   I -> id := E I'
+(8)   I' -> ;
+(9)   I' -> &
+
+
+Calcul de premiers : 
+
+premier(E') = [&, *, +]
+premier(E) = [nb, (, id]
+premier(I) = [id]
+premier(I') = [&, ;]
+
+
+Calcul de suivants : 
+
+suivants(E') = [$, ), *, +, ;]
+suivants(E) = [$, ), *, +, ;]
+suivants(I) = [$]
+suivants(I') = [$]
+
+
+
+ 
+                                 Non-recursive Analysis Table 
+ 
+                  id                  :=                   ;                  nb                   (                   )                   +                   *                   $
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+E'                []                  []                 [3]                  []                  []                 [3]              [1, 3]              [2, 3]                 [3]
+E                [4]                  []             [synch]                 [5]                 [6]             [synch]             [synch]             [synch]             [synch]
+I                [7]                  []                  []                  []                  []                  []                  []                  []             [synch]
+I'                []                  []                 [8]                  []                  []                  []                  []                  []                 [9]
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+=>  Grammaire n'est pas LL(1) 
+
+
+
+Comoptement analyseur suite a l'analyse du mot : id := id := id
+
+pile : [$, I]                         entrée :        [id, :=, id, :=, id, $] 
+pile : [$, I', E, :=, id]             entrée :        [id, :=, id, :=, id, $] 
+pile : [$, I', E, :=]                 entrée :            [:=, id, :=, id, $] 
+pile : [$, I', E]                     entrée :                [id, :=, id, $] 
+pile : [$, I', E', id]                entrée :                [id, :=, id, $] 
+pile : [$, I', E']                    entrée :                    [:=, id, $] 
+pile : [$, I', E']                    entrée :                    [:=, id, $]       Expected [&, *, +] But got ':=' 
+pile : [$, I', E']                    entrée :                        [id, $]       Expected [&, *, +] But got 'id' 
+pile : [$, I', &]                     entrée :                            [$] 
+pile : [$, I']                        entrée :                            [$] 
+pile : [$, &]                         entrée :                            [$] 
+pile : [$]                            entrée :                            [$] 
+pile : []                             entrée :                             [] 
+
+Input parsed with 2 Errors

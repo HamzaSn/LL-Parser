@@ -1,0 +1,90 @@
+             Analyse Syntaxique prédictive non récursive
+
+
+
+Axiom  : route
+
+Terminaux  : [GO, PAN, TL, TR]
+
+Non-terminaux  : [route, suite, inst, panneau, turn]
+
+Regles de productions : 
+
+(1)   route -> inst suite
+(2)   suite -> inst suite
+(3)   suite -> &
+(4)   inst -> GO
+(5)   inst -> panneau turn
+(6)   panneau -> PAN
+(7)   panneau -> &
+(8)   turn -> TL
+(9)   turn -> TR
+
+
+Calcul de premiers : 
+
+premier(route) = [GO, TL, PAN, TR]
+premier(suite) = [&, GO, TL, PAN, TR]
+premier(inst) = [GO, TL, PAN, TR]
+premier(panneau) = [&, PAN]
+premier(turn) = [TL, TR]
+
+
+Calcul de suivants : 
+
+suivants(route) = [$]
+suivants(suite) = [$]
+suivants(inst) = [$, GO, TL, PAN, TR]
+suivants(panneau) = [TL, TR]
+suivants(turn) = [$, GO, TL, PAN, TR]
+
+
+
+ 
+                                 Non-recursive Analysis Table 
+ 
+                  GO                 PAN                  TL                  TR                   $
+----------------------------------------------------------------------------------------------------
+route            [1]                 [1]                 [1]                 [1]             [synch]
+suite            [2]                 [2]                 [2]                 [2]                 [3]
+inst      [4, synch]          [5, synch]          [5, synch]          [5, synch]             [synch]
+panneau           []                 [6]                 [7]                 [7]                  []
+turn         [synch]             [synch]          [8, synch]          [9, synch]             [synch]
+----------------------------------------------------------------------------------------------------
+
+=>  Grammaire n'est pas LL(1) 
+
+
+
+Comoptement analyseur suite a l'analyse du mot : TL GO TR GO PAN
+
+pile : [$, route]                     entrée :       [TL, GO, TR, GO, PAN, $] 
+pile : [$, suite, inst]               entrée :       [TL, GO, TR, GO, PAN, $] 
+pile : [$, suite, turn, panneau]      entrée :       [TL, GO, TR, GO, PAN, $] 
+pile : [$, suite, turn, &]            entrée :       [TL, GO, TR, GO, PAN, $] 
+pile : [$, suite, turn]               entrée :       [TL, GO, TR, GO, PAN, $] 
+pile : [$, suite, TL]                 entrée :       [TL, GO, TR, GO, PAN, $] 
+pile : [$, suite]                     entrée :           [GO, TR, GO, PAN, $] 
+pile : [$, suite, inst]               entrée :           [GO, TR, GO, PAN, $] 
+pile : [$, suite, GO]                 entrée :           [GO, TR, GO, PAN, $] 
+pile : [$, suite]                     entrée :               [TR, GO, PAN, $] 
+pile : [$, suite, inst]               entrée :               [TR, GO, PAN, $] 
+pile : [$, suite, turn, panneau]      entrée :               [TR, GO, PAN, $] 
+pile : [$, suite, turn, &]            entrée :               [TR, GO, PAN, $] 
+pile : [$, suite, turn]               entrée :               [TR, GO, PAN, $] 
+pile : [$, suite, TR]                 entrée :               [TR, GO, PAN, $] 
+pile : [$, suite]                     entrée :                   [GO, PAN, $] 
+pile : [$, suite, inst]               entrée :                   [GO, PAN, $] 
+pile : [$, suite, GO]                 entrée :                   [GO, PAN, $] 
+pile : [$, suite]                     entrée :                       [PAN, $] 
+pile : [$, suite, inst]               entrée :                       [PAN, $] 
+pile : [$, suite, turn, panneau]      entrée :                       [PAN, $] 
+pile : [$, suite, turn, PAN]          entrée :                       [PAN, $] 
+pile : [$, suite, turn]               entrée :                            [$] 
+pile : [$, suite]                     entrée :                            [$]      Error 
+pile : [$, &]                         entrée :                            [$] 
+pile : [$]                            entrée :                            [$] 
+pile : []                             entrée :                             [] 
+
+Input parsed with 1 Errors
+Synch ERROR
