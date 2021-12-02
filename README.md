@@ -2,7 +2,7 @@
 
 ## Overview
 
-Une implementation JAVA de la methode d'analyse non recursif LL(1) d'une entrée suivant les regles d'un grammaire non-ambigue.
+Une implementation Java de la methode d'analyse non recursif LL(1) d'une entrée suivant les regles d'un grammaire non-ambigue.
 
 La solution accepte une configuration intiale a savoir la définition du grammaire  et l'entrée du mot a analyser.
 
