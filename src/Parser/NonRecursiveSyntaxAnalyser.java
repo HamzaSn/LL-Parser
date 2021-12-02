@@ -16,7 +16,7 @@ import java.util.List;
 public class NonRecursiveSyntaxAnalyser {
 
     public Stack S = new Stack();
-    public Analysis AT = new Analysis();
+    public AnalysisTable AT = new AnalysisTable();
     public InputReader IR = AT.IR;
 
     public String output = "";

@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * et de l'affichage et l'ecriture du rapport de l'analyse.
  */
 
-public class Analysis {
+public class AnalysisTable {
 
 
     public InputReader IR = new InputReader("./input/config.txt", "./input/input.txt");
@@ -34,7 +34,7 @@ public class Analysis {
      * de données de base pour le fonctionnement des autre fonction. (prodTable et prodArray)
      * @throws IOException
      */
-    public Analysis() throws IOException {
+    public AnalysisTable() throws IOException {
 
         terminals = IR.terminals;
         nonTerminals = IR.nonTerminals;
