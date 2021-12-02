@@ -1,0 +1,75 @@
+             Analyse Syntaxique prédictive non récursive
+
+
+
+Axiom  : S
+
+Terminaux  : [i, t, a, c, b]
+
+Non-terminaux  : [S, S', E]
+
+Regles de productions : 
+
+(1)   S -> i E t S S'
+(2)   S -> a
+(3)   S' -> c S
+(4)   S' -> &
+(5)   E -> b
+
+
+Calcul de premiers : 
+
+premier(S) = [a, i]
+premier(S') = [c, &]
+premier(E) = [b]
+
+
+Calcul de suivants : 
+
+suivants(S) = [c, $]
+suivants(S') = [c, $]
+suivants(E) = [t]
+
+
+
+ 
+                                 Non-recursive Analysis Table 
+ 
+                   i                   t                   a                   c                   b                   $
+------------------------------------------------------------------------------------------------------------------------
+S                [1]                  []                 [2]             [synch]                  []             [synch]
+S'                []                  []                  []              [3, 4]                  []                 [4]
+E                 []             [synch]                  []                  []                 [5]                  []
+------------------------------------------------------------------------------------------------------------------------
+
+=>  Grammaire n'est pas LL(1) 
+
+
+
+Comoptement analyseur suite a l'analyse du mot : i t a c b i i t b c a t
+
+pile : [$, S]                         entrée : [i, t, a, c, b, i, i, t, b, c, a, t, $] 
+pile : [$, S', S, t, E, i]            entrée : [i, t, a, c, b, i, i, t, b, c, a, t, $] 
+pile : [$, S', S, t, E]               entrée : [t, a, c, b, i, i, t, b, c, a, t, $] 
+pile : [$, S', S, t]                  entrée : [t, a, c, b, i, i, t, b, c, a, t, $]      Error 
+pile : [$, S', S]                     entrée : [a, c, b, i, i, t, b, c, a, t, $] 
+pile : [$, S', a]                     entrée : [a, c, b, i, i, t, b, c, a, t, $] 
+pile : [$, S']                        entrée : [c, b, i, i, t, b, c, a, t, $] 
+pile : [$, S, c]                      entrée : [c, b, i, i, t, b, c, a, t, $] 
+pile : [$, S]                         entrée :    [b, i, i, t, b, c, a, t, $] 
+pile : [$, S]                         entrée :    [b, i, i, t, b, c, a, t, $]       Expected [a, i] But got 'b' 
+pile : [$, S', S, t, E, i]            entrée :       [i, i, t, b, c, a, t, $] 
+pile : [$, S', S, t, E]               entrée :          [i, t, b, c, a, t, $] 
+pile : [$, S', S, t, E]               entrée :          [i, t, b, c, a, t, $]       Expected [b] But got 'i' 
+pile : [$, S', S, t]                  entrée :             [t, b, c, a, t, $]      Error 
+pile : [$, S', S]                     entrée :                [b, c, a, t, $] 
+pile : [$, S', S]                     entrée :                [b, c, a, t, $]       Expected [a, i] But got 'b' 
+pile : [$, S']                        entrée :                   [c, a, t, $]      Error 
+pile : [$, S, c]                      entrée :                   [c, a, t, $] 
+pile : [$, S]                         entrée :                      [a, t, $] 
+pile : [$, a]                         entrée :                      [a, t, $] 
+pile : [$]                            entrée :                         [t, $] 
+pile : []                             entrée :                            [$] 
+
+Input parsed with 6 Errors
+Synch ERRORSynch ERRORSynch ERROR
